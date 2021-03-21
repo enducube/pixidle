@@ -1,2 +1,2 @@
 # Pixidle
-An online Flask game where players can buy/sell coloured pixels using coins gained from an idle game.
+A web application made with Flask which can setup, host and play multiplayer games.
