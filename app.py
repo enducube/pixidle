@@ -5,6 +5,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_socketio import SocketIO
+import eventlet
 
 # Init app
 
@@ -13,12 +15,17 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 app.config['SECRET_KEY'] = 'funy'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite///data.db'
 
+socketio = SocketIO(app)
+
 @login_manager.user_loader
 def load_user(user):
-    return User.get(user)
+    return User.query.get(user)
+
+# Classes and such
 
 class User(db.Model, UserMixin):
     # The user class
@@ -32,19 +39,32 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-class LoginForm():
+class LoginForm(FlaskForm):
     username = StringField()
+    password = StringField()
 
 
 # Routes and other stuff
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    form = LoginForm()
+    return render_template("index.html",form=form)
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
     form = LoginForm()
 
+
+# Socket.IO routes
+@socketio.on("login")
+def socketlogin(json):
+    data = dict(json)
+    print(data['username'])
+    print(data['password'])
+
+
+
 if __name__ == "__main__":
-    app.run()
+    print("bar")
+    socketio.run(app)
