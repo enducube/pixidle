@@ -70,6 +70,7 @@ def register():
     form = LoginForm()
     if form.validate_on_submit():
         new_user = User(username=form.username.data, password=form.password.data)
+        new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
         return redirect("/")
@@ -79,22 +80,14 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
-        if user:
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
             login_user(user)
     return render_template("login.html",form=form)
 
 
 # Socket.IO routes
-@socketio.on("register")
-def socket_register(json):
-    data = dict(json)
-    print(data['username'])
-    print(data['password'])
-    new_user = User(username=data['username'], password=data['password'])
-    db.session.add(new_user)
-    db.session.commit()
-    return redirect("/")
+
 
 
 
