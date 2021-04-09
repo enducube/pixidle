@@ -4,7 +4,7 @@ pixidle by enducube/Jack Milner
 ## Imports
 from flask import Flask, render_template, redirect
 # Login and CRUD interaction with database
-from flask_login import LoginManager, UserMixin
+from flask_login import LoginManager, UserMixin, login_user
 from flask_sqlalchemy import SQLAlchemy
 # Form modules
 from flask_wtf import FlaskForm
@@ -53,8 +53,8 @@ class User(db.Model, UserMixin):
 # Form classes (yeah pretty funny I know)
 
 class LoginForm(FlaskForm):
-    username = StringField(validators=[DataRequired])
-    password = PasswordField(validators=[DataRequired])
+    username = StringField(DataRequired())
+    password = PasswordField(DataRequired())
 
 
 ## Routes and other stuff
@@ -65,14 +65,24 @@ class LoginForm(FlaskForm):
 def index():
     return render_template("index.html")
 
-@app.route("/register")
+@app.route("/register", methods=('GET', 'POST'))
 def register():
     form = LoginForm()
-    return render_template("index.html",form=form)
+    if form.validate_on_submit():
+        new_user = User(username=form.username.data, password=form.password.data)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect("/")
+    return render_template("register.html",form=form)
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+        if user:
+            login_user(user)
+    return render_template("login.html",form=form)
 
 
 # Socket.IO routes

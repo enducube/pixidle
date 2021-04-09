@@ -8,18 +8,10 @@
 
 <body>
 
-    <form>
+    <form method="POST">
+        {{ form.csrf_token }}
         {{ form.username(placeholder="username", id="username") }}
         {{ form.password(placeholder="password", id="password") }}
         <input type="submit" value="register">
     </form>
-    <script>
-        $("form").submit(function(e) {
-            socket.emit('login', { username: $("#username").val(), password: $("#password").val() });
-            $("form").trigger("reset");
-            e.preventDefault();
-        });
-
-
-    </script>
 </body>
