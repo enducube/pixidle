@@ -1,3 +1,11 @@
 input {
     display: block;
   }
+
+  #con {
+    height: 50%;
+    width: 70%;
+    overflow:auto; 
+    display:flex; 
+    flex-direction:column-reverse;
+  }
