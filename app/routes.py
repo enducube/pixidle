@@ -1,4 +1,4 @@
-from app import app, socketio, login_required, models, current_user, redirect, render_template, logout_user, login_user, login_manager, db
+from app import app, socketio, login_required, models, current_user, redirect, render_template, logout_user, login_user, login_manager, db, markdown
 from app.models import User, Message, Channel, LoginForm, MessageForm
 
 #### Routes and other stuff
