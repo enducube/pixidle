@@ -11,6 +11,7 @@ from wtforms.validators import DataRequired
 from werkzeug.security import generate_password_hash, check_password_hash
 # Socket.IO and eventlet
 from flask_socketio import SocketIO
+from flaskext.markdown import Markdown
 import eventlet
 
 ## Init app
@@ -27,6 +28,7 @@ db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 socketio = SocketIO(app)
+markdown = Markdown(app)
 
 from app import routes
 

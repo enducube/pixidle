@@ -1,3 +1,7 @@
+<div>
+{% filter markdown %}
 {% for i in messages %}
-<blockquote><b>{{ get_user_from_id(i.user_id) }}</b> {{ i.message }}</blockquote>
+**{{ get_user_from_id(i.user_id) }}** {{ i.message }}
 {% endfor %}
+{% endfilter %}
+</div>
