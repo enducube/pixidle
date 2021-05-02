@@ -82,3 +82,4 @@ def socket_message(json):
 @socketio.on("connect")
 def connection():
     socketio.emit("msg")
+    
