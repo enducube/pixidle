@@ -11,6 +11,7 @@ from wtforms.validators import DataRequired
 from werkzeug.security import generate_password_hash, check_password_hash
 # Socket.IO and eventlet
 from flask_socketio import SocketIO
+from flaskext.markdown import Markdown
 import eventlet
 from flaskext.markdown import Markdown
 
