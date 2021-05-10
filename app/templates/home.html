@@ -8,17 +8,27 @@
 </head>
 
 <body>
-    <h1>{{ channel_name }}</h1>
-    <p>you are signed in as {{ current_user.username }}</p>
-    <a href="/logout">logout</a>
-    <div id="con">
-        <div id="msgr"></div>
+    <ul>
+        <li><span style="color:#aaa">channel:</span> {{ channel_name }}</li>
+        <li style="float:right" class="profbtn">
+            <a>{{ current_user.username }}<a>
+            <div class="dropdown-content">
+                <a href="/logout">logout</a>    
+            </div>
+        </li>
+    </ul>
+    <h1></h1>
+
+    <div id="content">
+        <div id="con">
+            <div id="msgr"></div>
+        </div>
+            
+        <form>
+            {{ form.message(id="msgbox") }}
+            <input type="submit" value="send">
+        </form>
     </div>
-        
-    <form>
-        {{ form.message(id="msgbox") }}
-        <input type="submit" value="send">
-    </form>
     <script>
         $("form").submit(function(e){
             socket.emit("message", {  message: $("#msgbox").val(), channel_id: "{{ channel_id }}", user_id: "{{ current_user.id }}" });

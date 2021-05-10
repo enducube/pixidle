@@ -8,4 +8,55 @@ input {
     overflow:auto; 
     display:flex; 
     flex-direction:column-reverse;
+    word-wrap: break-word;
   }
+  body {
+    font-family: Calibri;
+    background-color: #444;
+    color: rgb(235, 235, 235);
+    margin:0;
+  }
+
+  
+  a {
+    text-decoration: underline;
+    color: rgb(121, 123, 255);
+
+  }
+
+ul  {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+    overflow: hidden;
+    top: 0px;
+    width: 100%;
+  }
+li {
+  padding:10px 20px;
+  float: left;
+  font-size: 18px;
+}
+li a, .profbtn {
+display: inline-block;
+text-align: center;
+text-decoration: none;
+color: #eee;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #555;
+  z-index: 1;
+  padding:10px;
+  
+}
+
+.profbtn:hover .dropdown-content {
+display: block;
+}
+#content {
+  left: 10%;
+}
