@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 # Form modules
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField
-from wtforms.validators import DataRequired
+from wtforms.validators import InputRequired
 # Werkzeug features
 from werkzeug.security import generate_password_hash, check_password_hash
 # Socket.IO and eventlet

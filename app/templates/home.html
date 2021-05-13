@@ -24,15 +24,17 @@
             <div id="msgr"></div>
         </div>
             
-        <form>
+        <form autocomplete="off" id="msginput">
             {{ form.message(id="msgbox") }}
             <input type="submit" value="send">
         </form>
     </div>
     <script>
         $("form").submit(function(e){
-            socket.emit("message", {  message: $("#msgbox").val(), channel_id: "{{ channel_id }}", user_id: "{{ current_user.id }}" });
-            $("form").trigger("reset");
+            if ($("#msgbox").val() != "") {
+                socket.emit("message", {  message: $("#msgbox").val(), channel_id: "{{ channel_id }}", user_id: "{{ current_user.id }}" });
+                $("form").trigger("reset");
+            }
             e.preventDefault();
         });
         socket.on("msg",function() {

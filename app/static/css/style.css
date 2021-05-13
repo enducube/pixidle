@@ -3,8 +3,9 @@ input {
   }
 
   #con {
-    height: 50%;
-    width: 70%;
+    height: 90%;
+    width: 100%;
+    top: 0%;
     overflow:auto; 
     display:flex; 
     flex-direction:column-reverse;
@@ -16,7 +17,16 @@ input {
     color: rgb(235, 235, 235);
     margin:0;
   }
-
+@media screen and (max-device-width: 600px) {
+  body {
+    zoom:1.5;
+  }
+}
+@media screen and (min-device-width: 601px) {
+  body {
+    zoom:1;
+  }
+}
   
   a {
     text-decoration: underline;
@@ -58,5 +68,37 @@ color: #eee;
 display: block;
 }
 #content {
-  left: 10%;
+  margin-left: 5%;
+  margin-right: 20%;
+  padding: 10px;
+  height:90%;
+  border-radius: 5px;
+  background-color: #333;
+  font-size:1.2rem;
+}
+div.msginput {
+
+
+}
+#msginput input {
+  display:inline;
+  height:3rem;
+  border-style: solid;
+  border-color: #eee;
+  border-width: 2px;
+  background-color: #333;
+  color: #eee;
+  font-size:1rem;
+}
+#msgbox {
+  width: 80%;
+  height: 3rem;
+  display:inline;
+  background-color: #333;
+  border-style: solid;
+  border-color: #eee;
+  border-width: 2px;
+  color: #eee;
+  font-size:1rem;
+  
 }

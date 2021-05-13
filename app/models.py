@@ -1,4 +1,4 @@
-from app import db, FlaskForm, UserMixin, generate_password_hash, check_password_hash, StringField, PasswordField, DataRequired
+from app import db, FlaskForm, UserMixin, generate_password_hash, check_password_hash, StringField, PasswordField, InputRequired
 ## Classes and such
 
 class User(db.Model, UserMixin):
@@ -29,8 +29,8 @@ class Channel(db.Model):
 # Form classes (yeah pretty funny I know)
 
 class LoginForm(FlaskForm):
-    username = StringField(DataRequired())
-    password = PasswordField(DataRequired())
+    username = StringField(InputRequired())
+    password = PasswordField(InputRequired())
 
 class MessageForm(FlaskForm):
-    message = StringField(DataRequired())
+    message = StringField(InputRequired())
