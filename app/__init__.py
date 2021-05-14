@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # Socket.IO and eventlet
 from flask_socketio import SocketIO
 from flaskext.markdown import Markdown
-import eventlet
+import gevent
 from flaskext.markdown import Markdown
 
 ## Init app
@@ -28,7 +28,7 @@ db = SQLAlchemy()
 db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-socketio = SocketIO(app, async_mode='gevent')
+socketio = SocketIO(app, async_mode='gevent', cors_allowed_origins="*")
 markdown = Markdown(app)
 
 from app import routes
