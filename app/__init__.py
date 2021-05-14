@@ -28,7 +28,7 @@ db = SQLAlchemy()
 db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='gevent')
 markdown = Markdown(app)
 
 from app import routes

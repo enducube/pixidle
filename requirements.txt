@@ -3,4 +3,5 @@ flask_socketio
 flask_markdown
 flask_wtf
 flask_sqlalchemy
-eventlet
+gevent
+gevent-websocket

@@ -54,6 +54,10 @@ text-align: center;
 text-decoration: none;
 color: #eee;
 }
+img {
+  float:left;
+  margin-left: 1%;
+}
 
 .dropdown-content {
   display: none;
