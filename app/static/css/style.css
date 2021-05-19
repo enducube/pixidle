@@ -6,7 +6,7 @@ input {
     height: 90%;
     width: 100%;
     top: 0%;
-    overflow:auto;
+    overflow-y:auto;
     display:flex; 
     flex-direction:column-reverse;
   }
@@ -26,7 +26,7 @@ input {
 }
 @media screen and (min-device-width: 601px) {
   body {
-    zoom:0.9;
+    zoom:1;
   }
 }
   
@@ -108,3 +108,23 @@ div.msginput {
   font-size:1rem;
   
 }
+
+
+
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

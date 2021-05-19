@@ -1,7 +1,5 @@
-<div>
 {% filter markdown %}
 {% for i in messages %}
 **{{ get_user_from_id(i.user_id) }}** {{ i.message }}
 {% endfor %}
 {% endfilter %}
-</div>
