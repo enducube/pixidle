@@ -53,6 +53,11 @@ def logout():
     logout_user()
     return redirect("/")
 
+@app.route("/accountsettings")
+@login_required
+def settings():
+    return render_template("settings.html")
+
 ################ The meat of the application (where the chatting will occur) ################
 
 @app.route("/home/<channel_name>")

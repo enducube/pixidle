@@ -1,0 +1,14 @@
+<body>
+    <ul>
+        <img src="{{ url_for('static', filename='logo/logo_bw.svg') }}" width=36 height=36></img>
+        <li><span style="color:#aaa">channel:</span> {{ channel_name }}</li>
+        <li style="float:right" class="profbtn">
+            <a>{{ current_user.username }}<a>
+            <div class="dropdown-content">
+                <a href="/accountsettings">settings</a> 
+                <a href="/logout">logout</a>    
+            </div>
+        </li>
+    </ul>
+
+</body>
