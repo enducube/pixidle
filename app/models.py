@@ -1,4 +1,4 @@
-from app import db, FlaskForm, UserMixin, generate_password_hash, check_password_hash, StringField, PasswordField, InputRequired
+from app import db, FlaskForm, UserMixin, generate_password_hash, check_password_hash, StringField, PasswordField, FileField, InputRequired, DataRequired
 ## Classes and such
 
 class User(db.Model, UserMixin):
@@ -34,3 +34,6 @@ class LoginForm(FlaskForm):
 
 class MessageForm(FlaskForm):
     message = StringField(InputRequired())
+
+class UploadForm(FlaskForm):
+    file = FileField(DataRequired())

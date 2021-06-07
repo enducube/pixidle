@@ -1,5 +1,8 @@
-from app import app, socketio, login_required, models, current_user, redirect, render_template, logout_user, login_user, login_manager, db, markdown
-from app.models import User, Message, Channel, LoginForm, MessageForm
+from app import (app, socketio, login_required, 
+ models, current_user, redirect, render_template,
+ logout_user, login_user, login_manager, db, markdown, secure_filename)
+
+from app.models import User, Message, Channel, LoginForm, MessageForm, UploadForm
 
 #### Routes and other stuff
 
@@ -56,6 +59,10 @@ def logout():
 @app.route("/accountsettings")
 @login_required
 def settings():
+    form = UploadForm()
+    if form.validate_on_submit():
+        filename = secure_filename(form.file.data.filename)
+        form.file.data.save("static/profile/")
     return render_template("settings.html")
 
 ################ The meat of the application (where the chatting will occur) ################

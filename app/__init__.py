@@ -5,9 +5,11 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from flask_sqlalchemy import SQLAlchemy
 # Form modules
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField
 from wtforms import StringField, TextAreaField, PasswordField
-from wtforms.validators import InputRequired
+from wtforms.validators import InputRequired, DataRequired
 # Werkzeug features
+from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 # Socket.IO and eventlet
 from flask_socketio import SocketIO

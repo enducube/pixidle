@@ -26,8 +26,8 @@
         </div>
             
         <form autocomplete="off" id="msginput">
-            {{ form.message(id="msgbox") }}
-            <input type="submit" value="send">
+            {{ form.message(id="msgbox", maxlength=100) }}
+            <input type="submit" value=">">
         </form>
     </div>
     <script>
