@@ -4,6 +4,8 @@ from app import (app, socketio, login_required,
 
 from app.models import User, Message, Channel, LoginForm, MessageForm, UploadForm
 
+import os
+
 #### Routes and other stuff
 
 @login_manager.user_loader
@@ -36,9 +38,9 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         user = User.query.filter_by(username=form.username.data).first()
-        login_user(user)
+        login_user(user) # automatically log in the user
         return redirect("/home/general")
-    return render_template("register.html",form=form)
+    return render_template("register.html", form=form)
 
 @app.route("/login", methods=('GET', 'POST'))
 def login():
@@ -56,14 +58,16 @@ def logout():
     logout_user()
     return redirect("/")
 
-@app.route("/accountsettings")
+@app.route("/accountsettings", methods=('GET', 'POST'))
 @login_required
 def settings():
     form = UploadForm()
     if form.validate_on_submit():
-        filename = secure_filename(form.file.data.filename)
-        form.file.data.save("static/profile/")
-    return render_template("settings.html")
+        print(form.file.data.filename)
+        filename = secure_filename(str(current_user.id)+'.'+form.file.data.filename.rsplit('.',1)[1])
+        
+        form.file.data.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+    return render_template("settings.html", form=form)
 
 ################ The meat of the application (where the chatting will occur) ################
 

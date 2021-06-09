@@ -23,6 +23,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'funy'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["UPLOAD_FOLDER"] = "/static/profile"
 
 # Setup extra stuff for the app (sqlalchemy, flask_login, socketio)
 

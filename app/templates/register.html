@@ -12,7 +12,7 @@
     <form method="POST">
         {{ form.csrf_token }}
         {{ form.username(placeholder="username", id="username", pattern="^[A-Za-z0-9_]{1,15}$") }}
-        {{ form.password(placeholder="password", id="password", pattern="^[A-Za-z0-9_]{1,15}$") }}
+        {{ form.password(placeholder="password", id="password") }}
         <input type="submit" value="register">
     </form>
 </body>
