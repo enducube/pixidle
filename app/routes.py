@@ -1,6 +1,6 @@
 from app import (app, socketio, login_required, 
  models, current_user, redirect, render_template,
- logout_user, login_user, login_manager, db, markdown, secure_filename)
+ logout_user, login_user, login_manager, db, markdown, secure_filename, url_for)
 
 from app.models import User, Message, Channel, LoginForm, MessageForm, UploadForm
 
@@ -18,7 +18,7 @@ def load_user(user):
 def context():
     def get_user_from_id(id):
         found_user = User.query.filter_by(id=id).first()
-        return found_user.username
+        return found_user
     return dict(get_user_from_id=get_user_from_id)
 
 @app.route("/")
@@ -65,8 +65,10 @@ def settings():
     if form.validate_on_submit():
         print(form.file.data.filename)
         filename = secure_filename(str(current_user.id)+'.'+form.file.data.filename.rsplit('.',1)[1])
-        
-        form.file.data.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+        print(os.getcwd())
+        form.file.data.save(os.path.normpath(os.path.join(os.path.dirname(__file__),"static/profile", filename)))
+        current_user.img = current_user.id
+        db.session.commit()
     return render_template("settings.html", form=form)
 
 ################ The meat of the application (where the chatting will occur) ################
@@ -89,7 +91,6 @@ def channel_render(channel_id):
 @socketio.on("message")
 def socket_message(json):
     data=dict(json)
-    print(data)
     msg = Message(message=data['message'], user_id=data['user_id'], channel_id=data['channel_id'])
     db.session.add(msg)
     db.session.commit()
