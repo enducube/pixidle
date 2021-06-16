@@ -83,20 +83,20 @@ def home(channel_name):
 
 @app.route("/channel/<channel_id>")
 def channel_render(channel_id):
-    messages = list(Message.query.filter_by(channel_id=channel_id))
-    return render_template("channel.html",messages=messages)
+    return render_template("channel.html")
 
 ## Socket.IO routes
 
 @socketio.on("message")
 def socket_message(json):
-    data=dict(json)
-    msg = Message(message=data['message'], user_id=data['user_id'], channel_id=data['channel_id'])
-    db.session.add(msg)
-    db.session.commit()
-    socketio.emit("msg",broadcast=True)
+    print(json)
+    #msg = Message(message=data['message'], user_id=data['user_id'], channel_id=data['channel_id'])
+    #db.session.add(msg)
+    #db.session.commit()
+    socketio.emit("msg",json,broadcast=True)
 
 @socketio.on("connect")
 def connection():
-    socketio.emit("msg")
+    socketio.emit("msg",{})
+    socketio.emit("user_connect")
     
