@@ -38,11 +38,11 @@
             }
             e.preventDefault();
         });
-        socket.on("msg",function() {
-            $("#msgr").load("/channel/{{ channel_id }}");
+        socket.on("msg",function(data) {
+            console.log(data)
+            var m = $("<p>"+data.user_id+" > "+data.message+"</p>");
+		    $('#msgr').append(m);
+            
         });
-        function reloadMessages() {
-        $("#msgr").load("/channel/{{ channel_id }}");
-        }
     </script>
 </body onload="reloadMessages">

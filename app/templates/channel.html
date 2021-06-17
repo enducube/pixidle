@@ -1,10 +1,3 @@
 
-<div class="message" style="padding-top:2px;padding-bottom:2px;">
-    <img style="margin-top:9px;border-radius: 50%;padding:9px;" src="{{ url_for('static', filename='profile/'+ get_user_from_id(i.user_id).img|string +'.png') }}" width="36" height="36">
-{% filter markdown %}
-
-**{{ get_user_from_id(i.user_id).username }}** {{ i.message }}
-{% endfilter %}
-</div>
 
 
