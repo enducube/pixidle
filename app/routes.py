@@ -5,6 +5,7 @@ from app import (app, socketio, login_required,
 from app.models import User, Message, Channel, LoginForm, MessageForm, UploadForm
 
 import os
+import json
 
 #### Routes and other stuff
 
@@ -88,15 +89,19 @@ def channel_render(channel_id):
 ## Socket.IO routes
 
 @socketio.on("message")
-def socket_message(json):
-    print(json)
+def socket_message(jsondata):
+    print(jsondata)
+    data = dict(jsondata)
+    data['name'] = User.query.filter_by(id=data['user_id']).first().username
+    data['img'] = url_for('static', filename='profile/'+ str(current_user.img) +'.png')
     #msg = Message(message=data['message'], user_id=data['user_id'], channel_id=data['channel_id'])
     #db.session.add(msg)
     #db.session.commit()
-    socketio.emit("msg",json,broadcast=True)
+    
+    socketio.emit("msg",data,broadcast=True)
 
 @socketio.on("connect")
 def connection():
-    socketio.emit("msg",{})
+    socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has connected."})
     socketio.emit("user_connect")
     

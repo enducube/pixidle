@@ -5,6 +5,10 @@
         const socket = io();
     </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>{{ channel_name }} - Pixidle</title>
 </head>
 
 <body>
@@ -40,7 +44,7 @@
         });
         socket.on("msg",function(data) {
             console.log(data)
-            var m = $("<p>"+data.user_id+" > "+data.message+"</p>");
+            var m = $("<p> <img src="+data.img+" width='36' height='36' class='pfp'>"+data.name+": "+data.message+"</p>");
 		    $('#msgr').append(m);
             
         });
