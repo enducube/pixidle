@@ -13,7 +13,7 @@
 
 <body>
     <ul>
-        <img src="{{ url_for('static', filename='logo/logo_bw.svg') }}" width=36 height=36></img>
+        <a href="/home/general"><img src="{{ url_for('static', filename='logo/logo_bw.svg') }}" width=36 height=36></img></a>
         <li><span style="color:#aaa">channel:</span> {{ channel_name }}</li>
         <li style="float:right" class="profbtn">
             <a>{{ current_user.username }}<a>
@@ -34,6 +34,9 @@
             <input type="submit" value=">">
         </form>
     </div>
+    <div id="userlist">
+        
+    </div>
     <script>
         $("form").submit(function(e){
             if ($("#msgbox").val() != "") {
@@ -47,6 +50,9 @@
             var m = $("<p> <img src="+data.img+" width='36' height='36' class='pfp'>"+data.name+": "+data.message+"</p>");
 		    $('#msgr').append(m);
             
+        });
+        socket.on("userlist_refresh",function() {
+            $('#userlist').load("/userlist");
         });
     </script>
 </body onload="reloadMessages">

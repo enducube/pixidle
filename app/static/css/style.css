@@ -66,8 +66,17 @@ img {
   position: absolute;
   background-color: #555;
   z-index: 1;
-  padding:10px;
+  padding:3px;
+  margin-right: 5px;
+  margin-top:10px;
   
+}
+.dropdown-content a {
+  padding:4px;
+}
+.dropdown-content a:hover {
+  text-align: center;
+  background-color: #888;
 }
 
 .profbtn:hover .dropdown-content {
@@ -78,6 +87,7 @@ display: block;
   margin-right: 20%;
   padding: 5px;
   height:90%;
+  width:60%;
   border-radius: 5px;
   background-color: #333;
   font-size:1.2rem;
@@ -114,7 +124,13 @@ div.msginput {
   padding-right: 5px;
 }
 
-
+#userlist {
+  width: 10%;
+  background-color: #333;
+  float: right;
+  margin-right:5%;
+  height:90%
+}
 
 
 

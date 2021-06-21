@@ -19,6 +19,8 @@ from flaskext.markdown import Markdown
 
 ## Init app
 
+connected_users = []
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'funy'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'

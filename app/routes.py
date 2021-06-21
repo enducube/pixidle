@@ -1,6 +1,6 @@
 from app import (app, socketio, login_required, 
  models, current_user, redirect, render_template,
- logout_user, login_user, login_manager, db, markdown, secure_filename, url_for)
+ logout_user, login_user, login_manager, db, markdown, secure_filename, url_for, connected_users)
 
 from app.models import User, Message, Channel, LoginForm, MessageForm, UploadForm
 
@@ -68,7 +68,7 @@ def settings():
         filename = secure_filename(str(current_user.id)+'.'+form.file.data.filename.rsplit('.',1)[1])
         print(os.getcwd())
         form.file.data.save(os.path.normpath(os.path.join(os.path.dirname(__file__),"static/profile", filename)))
-        current_user.img = current_user.id
+        current_user.img = filename
         db.session.commit()
     return render_template("settings.html", form=form)
 
@@ -80,11 +80,11 @@ def home(channel_name):
     msg_form = MessageForm()
     channel = Channel.query.filter_by(name=channel_name).first()
 
-    return render_template("home.html",form=msg_form,channel_id=channel.id,channel_name=channel_name)
+    return render_template("home.html",form=msg_form,channel_id=channel.id,channel_name=channel_name,connected_users=connected_users)
 
-@app.route("/channel/<channel_id>")
-def channel_render(channel_id):
-    return render_template("channel.html")
+@app.route("/userlist")
+def userlist_render():
+    return render_template("userlist.html",connected_users=connected_users)
 
 ## Socket.IO routes
 
@@ -93,7 +93,7 @@ def socket_message(jsondata):
     print(jsondata)
     data = dict(jsondata)
     data['name'] = User.query.filter_by(id=data['user_id']).first().username
-    data['img'] = url_for('static', filename='profile/'+ str(current_user.img) +'.png')
+    data['img'] = url_for('static', filename='profile/'+ str(current_user.img))
     #msg = Message(message=data['message'], user_id=data['user_id'], channel_id=data['channel_id'])
     #db.session.add(msg)
     #db.session.commit()
@@ -102,6 +102,13 @@ def socket_message(jsondata):
 
 @socketio.on("connect")
 def connection():
+    connected_users.append(str(current_user.username))
     socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has connected."})
-    socketio.emit("user_connect")
+    socketio.emit("userlist_refresh",broadcast=True)
+
+@socketio.on("disconnect")
+def disconnection():
+    connected_users.pop(connected_users.index(str(current_user.username)))
+    socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has disconnected."})
+    socketio.emit("userlist_refresh",broadcast=True)
     
