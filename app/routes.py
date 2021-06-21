@@ -2,7 +2,7 @@ from app import (app, socketio, login_required,
  models, current_user, redirect, render_template,
  logout_user, login_user, login_manager, db, markdown, secure_filename, url_for, connected_users)
 
-from app.models import User, Message, Channel, LoginForm, MessageForm, UploadForm
+from app.models import User, Channel, LoginForm, MessageForm, UploadForm
 
 import os
 import json
@@ -102,13 +102,15 @@ def socket_message(jsondata):
 
 @socketio.on("connect")
 def connection():
-    connected_users.append(str(current_user.username))
+    if current_user.username not in connected_users:
+        connected_users.append( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) )
     socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has connected."})
     socketio.emit("userlist_refresh",broadcast=True)
 
 @socketio.on("disconnect")
 def disconnection():
-    connected_users.pop(connected_users.index(str(current_user.username)))
+    if current_user.username in connected_users:
+        connected_users.pop(connected_users.index( (str(current_user.username),url_for('static', filename='profile/normal.png')) ))
     socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has disconnected."})
     socketio.emit("userlist_refresh",broadcast=True)
     

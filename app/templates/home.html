@@ -23,7 +23,7 @@
             </div>
         </li>
     </ul>
-
+    <div id="wholecontent">
     <div id="content">
         <div id="con">
             <div id="msgr"></div>
@@ -35,8 +35,10 @@
         </form>
     </div>
     <div id="userlist">
-        
+        <h2>connected users:</h2>
+        <div id="users"></div>
     </div>
+</div>
     <script>
         $("form").submit(function(e){
             if ($("#msgbox").val() != "") {
@@ -52,7 +54,7 @@
             
         });
         socket.on("userlist_refresh",function() {
-            $('#userlist').load("/userlist");
+            $('#users').load("/userlist");
         });
     </script>
 </body onload="reloadMessages">

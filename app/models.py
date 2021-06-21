@@ -14,13 +14,6 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-class Message(db.Model):
-    __tablename__ = "message"
-    id = db.Column(db.BigInteger, primary_key=True)
-    user_id = db.Column(db.Integer)
-    channel_id = db.Column(db.Integer)
-    message = db.Column(db.Text)
-
 class Channel(db.Model):
     __tablename__ = "channel"
     id = db.Column(db.Integer, primary_key=True)

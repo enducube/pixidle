@@ -2,6 +2,12 @@ input {
     display: block;
   }
 
+  #wholecontent {
+    display:grid;
+    height:90%;
+    width:95%;
+  }
+
   #con {
     height: 90%;
     width: 100%;
@@ -84,13 +90,16 @@ display: block;
 }
 #content {
   margin-left: 5%;
-  margin-right: 20%;
+  margin-right: 5%;
   padding: 5px;
-  height:90%;
-  width:60%;
   border-radius: 5px;
   background-color: #333;
   font-size:1.2rem;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 1;
+  grid-column-end: 8
+
 }
 div.msginput {
 
@@ -125,13 +134,21 @@ div.msginput {
 }
 
 #userlist {
-  width: 10%;
+
+  width:%;
   background-color: #333;
-  float: right;
-  margin-right:5%;
-  height:90%
+  height:90%;
+  grid-column-start: 8;
+  grid-column-end: 9;
+  padding-left:10%;
+  display:block;
+  text-align: center;
 }
 
+#users {
+  margin:0;
+  padding:0;
+}
 
 
 ::-webkit-scrollbar {
