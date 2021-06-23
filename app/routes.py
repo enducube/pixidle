@@ -102,15 +102,15 @@ def socket_message(jsondata):
 
 @socketio.on("connect")
 def connection():
-    if current_user.username not in connected_users:
+    if (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) not in connected_users:
         connected_users.append( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) )
     socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has connected."})
     socketio.emit("userlist_refresh",broadcast=True)
 
 @socketio.on("disconnect")
 def disconnection():
-    if current_user.username in connected_users:
-        connected_users.pop(connected_users.index( (str(current_user.username),url_for('static', filename='profile/normal.png')) ))
+    if (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) in connected_users:
+        connected_users.pop(connected_users.index( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) ))
     socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has disconnected."})
     socketio.emit("userlist_refresh",broadcast=True)
     

@@ -1,25 +1,11 @@
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <ul>
-        <a href="/home/general"><img src="{{ url_for('static', filename='logo/logo_bw.svg') }}" width=36 height=36></img></a>
-        <li>settings</li>
-        <li style="float:right" class="profbtn">
-            <a>{{ current_user.username }}<a>
-            <div class="dropdown-content">
-                <a href="/accountsettings">settings</a> 
-                <a href="/logout">logout</a>    
-            </div>
-        </li>
-    </ul>
-    <div id="content">
-        <p>burger</p>
-        <form method="post" enctype="multipart/form-data">
-            {{ form.csrf_token }}
-            {{ form.file }}
-            <input type="submit">
-        </form>
-    </div>
-</body>
+{% extends "base.html" %}
+{% block content %}
+<div id="content">
+    <p>burger</p>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {{ form.file }}
+        <input type="submit">
+    </form>
+</div>
+{% endblock %}

@@ -1,11 +1,16 @@
 input {
     display: block;
   }
-
+html {
+  height:100%;
+  max-height: 100%;
+}
   #wholecontent {
     display:grid;
     height:90%;
     width:95%;
+    top:5%;
+    max-height: 90%;
   }
 
   #con {
@@ -24,6 +29,8 @@ input {
     background-color: #444;
     color: rgb(235, 235, 235);
     margin:0;
+    height: 100%;
+    
   }
 @media screen and (max-device-width: 600px) {
   body {
@@ -58,7 +65,7 @@ li {
 }
 li a, .profbtn {
 display: inline-block;
-text-align: center;
+text-align: right;
 text-decoration: none;
 color: #eee;
 }
@@ -73,12 +80,13 @@ img {
   background-color: #555;
   z-index: 1;
   padding:3px;
-  margin-right: 5px;
+  right:0%;
   margin-top:10px;
-  
+  text-align: right;
 }
 .dropdown-content a {
   padding:4px;
+  display:block;
 }
 .dropdown-content a:hover {
   text-align: center;
@@ -98,12 +106,13 @@ display: block;
   grid-row-start: 1;
   grid-row-end: 1;
   grid-column-start: 1;
-  grid-column-end: 8
-
+  grid-column-end: 8;
+  overflow-y:auto;
 }
-div.msginput {
+#msginput {
 
-
+padding-top:5px;
+margin-top:10px;
 }
 #msginput input {
   display:inline;
@@ -134,15 +143,14 @@ div.msginput {
 }
 
 #userlist {
-
-  width:%;
   background-color: #333;
   height:90%;
   grid-column-start: 8;
   grid-column-end: 9;
-  padding-left:10%;
+  padding-left:5%;
   display:block;
   text-align: center;
+  font-size: 20px;
 }
 
 #users {
