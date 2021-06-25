@@ -1,4 +1,4 @@
-from app import db, FlaskForm, UserMixin, generate_password_hash, check_password_hash, StringField, PasswordField, FileField, InputRequired, DataRequired
+from app import db, FlaskForm, UserMixin, generate_password_hash, check_password_hash, StringField, PasswordField, FileField, InputRequired, DataRequired, ColorField
 ## Classes and such
 
 class User(db.Model, UserMixin):
@@ -7,7 +7,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
-    img = db.Column(db.String)
+    img = db.Column(db.String, default="normal.png")
+    colour = db.Column(db.String, default="ffffff")
 
     def set_password(self, password):
         self.password = generate_password_hash(password,method="sha256")
@@ -31,3 +32,7 @@ class MessageForm(FlaskForm):
 
 class UploadForm(FlaskForm):
     file = FileField(DataRequired())
+
+class CustomiseForm(FlaskForm):
+    file = FileField()
+    colour = ColorField()

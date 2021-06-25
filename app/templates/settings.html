@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 <div id="content">
+    <a href="{{ request.referrer }}">back</a>
     <p>burger</p>
     <form method="post" enctype="multipart/form-data">
         {{ form.csrf_token }}
-        {{ form.file }}
-        <input type="submit">
+        <p>Profile picture:</p>
+        <img src="{{ url_for('static', filename='profile/'+ current_user.img) }}" width='72' height='72' class='pfp'>
+        <br>
+        {{ form.file(accept="image/*") }}
+        <br>
+        <br>
+        <p>Username colour:</p>
+        {{ form.colour(value="#"+current_user.colour) }}
+        <input type="submit" value="Save">
     </form>
 </div>
 {% endblock %}

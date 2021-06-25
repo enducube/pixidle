@@ -63,6 +63,7 @@ li {
   float: left;
   font-size: 18px;
 }
+
 li a, .profbtn {
 display: inline-block;
 text-align: right;
@@ -173,4 +174,11 @@ margin-top:10px;
 
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
+  }
+
+
+  div.login {
+    align-items: center;
+    text-align: center;
+
   }

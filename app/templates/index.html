@@ -1,10 +1,12 @@
-
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-{% if current_user.is_authenticated %}
-<p>yes</p>
-{% else %}
-<a href="/register">register</a>
-<a href="/login">login</a>
-{% endif %}
+<ul>
+    <a><img src="{{ url_for('static', filename='logo/logo_bw.svg') }}" width=36 height=36></img></a>
+    <li style="float:right">
+        <a href="/register">register</a>
+        <a href="/login">login</a>
+    </li>
+</ul>
+
+<h1>pixidle</h1>

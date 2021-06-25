@@ -2,7 +2,7 @@ from app import (app, socketio, login_required,
  models, current_user, redirect, render_template,
  logout_user, login_user, login_manager, db, markdown, secure_filename, url_for, connected_users)
 
-from app.models import User, Channel, LoginForm, MessageForm, UploadForm
+from app.models import User, Channel, LoginForm, MessageForm, UploadForm, CustomiseForm
 
 import os
 import json
@@ -62,15 +62,20 @@ def logout():
 @app.route("/accountsettings", methods=('GET', 'POST'))
 @login_required
 def settings():
-    form = UploadForm()
+    form = CustomiseForm()
     if form.validate_on_submit():
-        print(form.file.data.filename)
-        filename = secure_filename(str(current_user.id)+'.'+form.file.data.filename.rsplit('.',1)[1])
-        print(os.getcwd())
-        form.file.data.save(os.path.normpath(os.path.join(os.path.dirname(__file__),"static/profile", filename)))
-        current_user.img = filename
+        if form.file.data != None:
+            print(form.file.data.filename)
+            filename = secure_filename(str(current_user.id)+'.'+form.file.data.filename.rsplit('.',1)[1])
+            print(os.getcwd())
+            form.file.data.save(os.path.normpath(os.path.join(os.path.dirname(__file__),"static/profile", filename)))
+            current_user.img = filename
+        if form.colour.data != None:
+            current_user.colour = str(form.colour.data.hex_l[1:])
+            print(form.colour.data.hex_l[1:])
         db.session.commit()
-    return render_template("settings.html", form=form)
+    
+    return render_template("settings.html", form=form, channel_name="Settings")
 
 ################ The meat of the application (where the chatting will occur) ################
 
@@ -94,6 +99,7 @@ def socket_message(jsondata):
     data = dict(jsondata)
     data['name'] = User.query.filter_by(id=data['user_id']).first().username
     data['img'] = url_for('static', filename='profile/'+ str(current_user.img))
+    data['colour'] =  current_user.colour
     #msg = Message(message=data['message'], user_id=data['user_id'], channel_id=data['channel_id'])
     #db.session.add(msg)
     #db.session.commit()
@@ -104,13 +110,13 @@ def socket_message(jsondata):
 def connection():
     if (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) not in connected_users:
         connected_users.append( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) )
-    socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has connected."})
+    socketio.emit("msg",{'name': "SERVER", "colour": "FFFFFF", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has connected."})
     socketio.emit("userlist_refresh",broadcast=True)
 
 @socketio.on("disconnect")
 def disconnection():
     if (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) in connected_users:
         connected_users.pop(connected_users.index( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) ))
-    socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has disconnected."})
+    socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has disconnected.", "colour": "FFFFFF"})
     socketio.emit("userlist_refresh",broadcast=True)
     

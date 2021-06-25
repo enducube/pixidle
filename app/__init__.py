@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from wtforms import StringField, TextAreaField, PasswordField
+from wtforms_components import ColorField
 from wtforms.validators import InputRequired, DataRequired
 # Werkzeug features
 from werkzeug.utils import secure_filename

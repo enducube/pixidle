@@ -5,3 +5,5 @@ flask_wtf
 flask_sqlalchemy
 gevent
 gevent-websocket
+wtforms-components
+colour
