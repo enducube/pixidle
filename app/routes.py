@@ -109,14 +109,14 @@ def socket_message(jsondata):
 @socketio.on("connect")
 def connection():
     if (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) not in connected_users:
-        connected_users.append( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) )
+        connected_users.append( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img)), str(current_user.colour)) )
     socketio.emit("msg",{'name': "SERVER", "colour": "FFFFFF", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has connected."})
     socketio.emit("userlist_refresh",broadcast=True)
 
 @socketio.on("disconnect")
 def disconnection():
-    if (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) in connected_users:
-        connected_users.pop(connected_users.index( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img))) ))
+    if (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img)), str(current_user.colour)) in connected_users:
+        connected_users.pop(connected_users.index( (str(current_user.username),url_for('static', filename='profile/'+ str(current_user.img)), str(current_user.colour)) ))
     socketio.emit("msg",{'name': "SERVER", "img": url_for('static', filename='profile/normal.png'), "message": current_user.username+" has disconnected.", "colour": "FFFFFF"})
     socketio.emit("userlist_refresh",broadcast=True)
     

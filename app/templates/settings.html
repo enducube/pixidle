@@ -5,15 +5,19 @@
     <p>burger</p>
     <form method="post" enctype="multipart/form-data">
         {{ form.csrf_token }}
-        <p>Profile picture:</p>
+        <h4>Profile picture:</h4>
         <img src="{{ url_for('static', filename='profile/'+ current_user.img) }}" width='72' height='72' class='pfp'>
         <br>
         {{ form.file(accept="image/*") }}
         <br>
         <br>
-        <p>Username colour:</p>
-        {{ form.colour(value="#"+current_user.colour) }}
+        <h4>Username colour:</h4>
+        <span id="samplecolour">{{ current_user.username }}</span>
+    {{ form.colour(value="#"+current_user.colour, id="colourinput") }} 
         <input type="submit" value="Save">
     </form>
 </div>
+<script>
+    $("#samplecolour").css({ "color": $("#colourinput").val()}) ;
+</script>
 {% endblock %}

@@ -18,9 +18,9 @@
         <a href="/home/general"><img src="{{ url_for('static', filename='logo/logo_bw.svg') }}" width=36 height=36></img></a>
         <li><span style="color:#aaa">channel:</span> {{ channel_name }}</li>
         <li style="float:right" class="profbtn">
-            <a><img src="{{ url_for('static', filename='profile/'+ current_user.img) }}" width='36' height='36' class='pfp'><a>
+            <a><img src="{{ url_for('static', filename='profile/'+ current_user.img) }}" width='36' height='36' class='pfp'></a>
             <div class="dropdown-content">
-                <span>{{ current_user.username }}</span>
+                <span style="color:#{{ current_user.colour }}">{{ current_user.username }}</span>
                 <a href="/accountsettings">settings</a> 
                 <a href="/logout">logout</a>    
             </div>
