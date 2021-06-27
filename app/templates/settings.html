@@ -13,11 +13,14 @@
         <br>
         <h4>Username colour:</h4>
         <span id="samplecolour">{{ current_user.username }}</span>
-    {{ form.colour(value="#"+current_user.colour, id="colourinput") }} 
+    {{ form.colour(value="#"+current_user.colour, id="colourinput", onchange="changeColour()") }} 
         <input type="submit" value="Save">
     </form>
 </div>
 <script>
-    $("#samplecolour").css({ "color": $("#colourinput").val()}) ;
+    $("#samplecolour").css({ "color": $("#colourinput").val()});
+    function changeColour() {
+        $("#samplecolour").css({ "color": $("#colourinput").val()});
+    }
 </script>
 {% endblock %}

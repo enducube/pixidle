@@ -29,6 +29,7 @@ class LoginForm(FlaskForm):
 
 class MessageForm(FlaskForm):
     message = StringField(InputRequired())
+    file = FileField(DataRequired())
 
 class UploadForm(FlaskForm):
     file = FileField(DataRequired())
