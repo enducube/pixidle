@@ -5,9 +5,11 @@
         <div id="con">
             <div id="msgr"></div>
         </div>
-            
+            <img id="imgpreview">
         <form autocomplete="off" id="msginput">
             {{ form.message(id="msgbox", maxlength=100) }}
+            {{ form.file(id="msgimg", onchange="changeImg()") }}
+            <label for="msgimg">Upload</label>
             <input type="submit" value=">">
         </form>
     </div>
@@ -18,15 +20,44 @@
 </div>
     <script>
         $("form").submit(function(e){
-            if ($("#msgbox").val() != "") {
-                socket.emit("message", {  message: $("#msgbox").val(), channel_id: "{{ channel_id }}", user_id: "{{ current_user.id }}" });
-                $("form").trigger("reset");
-            }
             e.preventDefault();
+
+            if ($("#msgbox").val() != "") {
+                if (document.getElementById('msgimg').files.length) {
+                    console.log("image thing");
+                    var reader = new FileReader();
+                    reader.onload = function(e){
+                        socket.emit("message", {  message: $("#msgbox").val(), channel_id: "{{ channel_id }}", user_id: "{{ current_user.id }}", uploadimg: reader.result });
+                        $("form").trigger("reset");
+                    }
+                    reader.readAsDataURL(document.getElementById('msgimg').files[0]);
+                    
+
+                } else {
+                    socket.emit("message", {  message: $("#msgbox").val(), channel_id: "{{ channel_id }}", user_id: "{{ current_user.id }}" });
+                    $("form").trigger("reset");
+                }
+                
+            }
+            
+            
         });
+        function changeImg() {
+            if (document.getElementById('msgimg').files.length) {
+                var reader = new FileReader();
+                    reader.onload = function(e){
+                        $("#imgpreview").attr('src', reader.result);
+                    }
+                    reader.readAsDataURL(document.getElementById('msgimg').files[0]);
+                    
+            }
+        }
         socket.on("msg",function(data) {
             console.log(data)
-            var m = $("<p> <img src="+data.img+" width='36' height='36' class='pfp'><span style='color:#"+data.colour+";'>"+data.name+"</span>: "+data.message+"</p><img src="+data.sentimg+">");
+            var m = $("<p> <img src="+data.img+" width='36' height='36' class='pfp'><span style='color:#"+data.colour+";'>"+data.name+"</span>: "+data.message+"</p>");
+            if (data.hasOwnProperty('uploadimg')) {
+                var m = $("<p> <img src="+data.img+" width='36' height='36' class='pfp'><span style='color:#"+data.colour+";'>"+data.name+"</span>: "+data.message+"</p><img class='uploadimg' src="+data.uploadimg+"><br>");
+            }
 		    $('#msgr').append(m);
             
         });

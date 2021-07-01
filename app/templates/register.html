@@ -11,6 +11,7 @@
         </li>
     </ul>
     <div class="login">
+        <h2>Register</h2>
     <form method="POST">
         {{ form.csrf_token }}
         {{ form.username(placeholder="username", id="username", pattern="^[A-Za-z0-9_]{1,15}$") }}

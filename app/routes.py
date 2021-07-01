@@ -6,6 +6,8 @@ from app.models import User, Channel, LoginForm, MessageForm, UploadForm, Custom
 
 import os
 import json
+import re
+import uuid
 
 #### Routes and other stuff
 
@@ -95,7 +97,6 @@ def userlist_render():
 
 @socketio.on("message")
 def socket_message(jsondata):
-    print(jsondata)
     data = dict(jsondata)
     data['name'] = User.query.filter_by(id=data['user_id']).first().username
     data['img'] = url_for('static', filename='profile/'+ str(current_user.img))

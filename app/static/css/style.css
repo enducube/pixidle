@@ -1,10 +1,15 @@
 input {
     display: block;
+    margin: auto;
+    padding:5px
   }
 html {
   height:100%;
   max-height: 100%;
 }
+
+
+
   #wholecontent {
     display:grid;
     height:90%;
@@ -24,6 +29,8 @@ html {
 #msgr {
       word-wrap: break-word;
 }
+
+
   body {
     font-family: Calibri;
     background-color: #444;
@@ -70,9 +77,13 @@ text-align: right;
 text-decoration: none;
 color: #eee;
 }
-img {
+.pfp {
   float:left;
   margin-left: 1%;
+}
+.logo {
+  float:left;
+  padding-left:1%
 }
 
 .dropdown-content {
@@ -115,7 +126,7 @@ display: block;
 padding-top:5px;
 margin-top:10px;
 }
-#msginput input {
+#msginput input[type="submit"] {
   display:inline;
   height:3rem;
   border-style: solid;
@@ -180,5 +191,38 @@ margin-top:10px;
   div.login {
     align-items: center;
     text-align: center;
+    margin: auto;
+    width:30%;
+    margin-top:10%;
+    padding:10px;
+    background-color: #333;
+  }
 
+
+
+  .uploadimg {
+    display:block;
+    margin-left:5%;
+    border-radius:5px;
+    max-width: 80%;
+  }
+
+
+ #msgimg {
+   display: none;
+ }
+
+  label {
+    display:inline-block;
+    
+  }
+
+  #imgwrapper {
+    width:90%;
+  }
+
+  #imgpreview {
+    position: absolute;
+    float: right;
+    text-align: end;
   }
