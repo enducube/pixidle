@@ -73,6 +73,7 @@ def settings():
             form.file.data.save(os.path.normpath(os.path.join(os.path.dirname(__file__),"static/profile", filename)))
             current_user.img = filename
         if form.colour.data != None:
+            print(form.colour.data.hex_l[1:])
             current_user.colour = str(form.colour.data.hex_l[1:])
             print(form.colour.data.hex_l[1:])
         db.session.commit()
