@@ -3,7 +3,9 @@
 <div id="wholecontent">
     <div id="content">
         <div id="con">
-            <div id="msgr"></div>
+            <div id="msgr">
+                <div id="anchor"></div>
+            </div>
         </div>
             
         <form autocomplete="off" id="msginput">
@@ -67,12 +69,13 @@
                 $("#imgpreview").attr('src', '');}
         }
         socket.on("msg",function(data) {
+            var anchor = document.getElementById("anchor");
             console.log(data)
             var m = $("<p> <img src="+data.img+" width='36' height='36' class='pfp'><span style='color:#"+data.colour+";'>"+data.name+"</span>: "+data.message+"</p>");
             if (data.hasOwnProperty('uploadimg')) {
                 var m = $("<p> <img src="+data.img+" width='36' height='36' class='pfp'><span style='color:#"+data.colour+";'>"+data.name+"</span>: "+data.message+"</p><img class='uploadimg' src="+data.uploadimg+"><br>");
             }
-		    $('#msgr').append(m);
+		    m.insertBefore(anchor);
             
         });
         socket.on("userlist_refresh",function() {

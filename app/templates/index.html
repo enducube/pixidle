@@ -1,12 +1,16 @@
 <head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logo/logo_bw.ico') }}" type="image/x-icon">  
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <ul>
     <a><img src="{{ url_for('static', filename='logo/logo_bw.svg') }}" width=36 height=36></img></a>
     <li style="float:right">
         <a href="/register">register</a>
+        <span style="color: #555;"> or </span>
         <a href="/login">login</a>
     </li>
 </ul>
 
 <h1>pixidle</h1>
+<p>you can <a href="/login">login</a> or <a href="/register">register</a></p>

@@ -1,6 +1,5 @@
 input {
     display: block;
-    margin: auto;
     padding:5px
   }
 html {
@@ -22,16 +21,25 @@ html {
     height: 85%;
     width: 100%;
     top: 0%;
-    overflow-y:auto;
     display:flex; 
     flex-direction:column-reverse;
+    flex-shrink: 0;
+    overflow-y:auto;
+    
   }
-#msgr {
-      word-wrap: break-word;
+#msgr * {
+  overflow-anchor: none;
+  word-wrap: break-word;
+}
+#anchor {
+  overflow-anchor: auto;
+  height:1px;
+
 }
 
 
   body {
+    
     font-family: Calibri;
     background-color: #444;
     color: rgb(235, 235, 235);
